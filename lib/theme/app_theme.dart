@@ -59,4 +59,5 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
     ),
   );
+
 }
