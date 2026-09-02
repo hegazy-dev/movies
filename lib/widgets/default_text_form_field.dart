@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/theme/app_colors.dart';
+import 'package:movies/theme/app_text_styles.dart';
 import 'package:movies/theme/app_theme.dart';
 
 class DefaultTextFormField extends StatefulWidget {
@@ -34,6 +35,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
     return TextFormField(
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: AppTextStyles.textTheme.titleMedium,
         prefixIcon: widget.prefixIconImageName == null
             ? null
             : SvgPicture.asset(

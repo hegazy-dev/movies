@@ -1,15 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movies/screens/register_screen.dart';
+import 'package:movies/theme/app_colors.dart';
+import 'package:movies/theme/app_text_styles.dart';
 import 'package:movies/widgets/default_elevated_button.dart';
+import 'package:movies/widgets/language_selector.dart';
 
 import '../widgets/default_text_form_field.dart';
 
-class loginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   static const String routeName = "/login";
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -17,44 +23,84 @@ class loginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.sizeOf(context).height * .072),
+                SizedBox(height: screenHeight * .072),
                 Image.asset(
                   "assets/images/logo.png",
-                  height: MediaQuery.sizeOf(context).height * .13,
-                  width: MediaQuery.sizeOf(context).width * .28,
+                  height: screenHeight * .13,
+                  width: screenWidth * .30,
                   fit: BoxFit.cover,
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * .074),
+                SizedBox(height: screenHeight * .074),
                 DefaultTextFormField(
                   hintText: "Email",
                   prefixIconImageName: "email_icon",
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * .024),
+                SizedBox(height: screenHeight * .024),
                 DefaultTextFormField(
                   hintText: "Password",
-                  prefixIconImageName: "lock_Passowrd",
+                  prefixIconImageName: "lock_passowrd",
                   isPassword: true,
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * .018),
-          
+
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      forgetPass();
+                    },
+                    child: Text("Forget Password?"),
+                  ),
+                ),
+                SizedBox(height: screenHeight * .02),
+
+                DefaultElevatedButton(label: "Login", onPressed: login),
                 Row(
-                  mainAxisAlignment: .end,
+                  mainAxisAlignment: .center,
                   children: [
+                    Text("Don’t Have Account ?"),
                     TextButton(
-                      onPressed: forgetPass,
-                      child: Text("Forget Password ?"),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RegisterScreen.routeName,
+                        );
+                      },
+                      child: Text("Create One"),
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * .03),
-          
-                DefaultElevatedButton(label: "Login", onPressed:login),
-                Row(mainAxisAlignment: .center,
+
+                SizedBox(height: screenHeight * .02),
+
+                Row(
                   children: [
-                  Text("Don’t Have Account ?"),TextButton(onPressed: (){
-                    Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
-                    },child: Text(" Create One"),)
-                ],)
+                    Expanded(
+                      child: Divider(color: AppColors.primary, thickness: 1),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+                      child: Text(
+                        'OR',
+                        style: AppTextStyles.textTheme.titleMedium,
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(color: AppColors.primary, thickness: 1),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: screenHeight * .03),
+
+                DefaultElevatedButton(
+                  label: 'Login With Google',
+                  onPressed: () {},
+                  icon: SvgPicture.asset('assets/icons/google_icon.svg'),
+                ),
+
+                SizedBox(height: screenHeight * .03),
+
+                LanguageSelector(firstLanguage: "🇺🇸", secondLanguage: "🇪🇬"),
               ],
             ),
           ),
@@ -67,9 +113,5 @@ class loginScreen extends StatelessWidget {
 void Function()? login() {
   //To Do login logic
 }
-void Function()? forgetPass() {
-
-}
-void Function()? rigester() {
-
-}
+void Function()? forgetPass() {}
+void Function()? rigester() {}

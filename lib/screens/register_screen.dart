@@ -61,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                           context,
-                          loginScreen.routeName,
+                          LoginScreen.routeName,
                         );
                       },
                       child: Text(" Login"),
