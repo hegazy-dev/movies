@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * .024),
                 DefaultTextFormField(
                   hintText: "Password",
-                  prefixIconImageName: "lock_passowrd",
+                  prefixIconImageName: "lock_Passowrd",
                   isPassword: true,
                 ),
 
