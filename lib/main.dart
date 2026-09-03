@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/home_screen.dart';
 import 'package:movies/theme/app_theme.dart';
 
 void main() {
@@ -9,6 +10,11 @@ class MoviesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+                HomeScreen.routeName: (_) => HomeScreen(),
+
+      },
+      initialRoute:HomeScreen.routeName ,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       themeMode: .dark,
