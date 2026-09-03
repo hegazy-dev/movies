@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movies/screens/forget_password_Screen.dart';
 import 'package:movies/screens/register_screen.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_text_styles.dart';
@@ -38,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * .024),
                 DefaultTextFormField(
                   hintText: "Password",
-                  prefixIconImageName: "lock_passowrd",
+                  prefixIconImageName: "lock_Passowrd",
                   isPassword: true,
                 ),
 
@@ -46,7 +47,10 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      forgetPass();
+                      Navigator.pushNamed(
+                        context,
+                        ForgetPasswordScreen.routeName,
+                      );
                     },
                     child: Text("Forget Password?"),
                   ),
@@ -60,10 +64,7 @@ class LoginScreen extends StatelessWidget {
                     Text("Don’t Have Account ?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          RegisterScreen.routeName,
-                        );
+                        Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
                       child: Text("Create One"),
                     ),
