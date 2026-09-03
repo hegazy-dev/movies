@@ -19,32 +19,58 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final avatarSize = (width * 0.274).clamp(88.0, 118.0);
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
+      padding: const EdgeInsets.fromLTRB(24, 0, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: MediaQuery.sizeOf(context).width * 0.15,
-            backgroundColor: const Color(0xFFB3E5FC),
-            backgroundImage: AssetImage(
-              avatarPath ?? AppAssets.defaultAvatar,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userName,
-                  style: AppTextStyles.textTheme.titleLarge,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  avatarPath ?? AppAssets.defaultAvatar,
+                  width: avatarSize,
+                  height: avatarSize,
+                  fit: BoxFit.cover,
                 ),
-              ],
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _StatItem(
+                        count: wishListCount,
+                        label: 'Wish List',
+                      ),
+                    ),
+                    Expanded(
+                      child: _StatItem(
+                        count: historyCount,
+                        label: 'History',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 3),
+            child: Text(
+              userName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                height: 1.2,
+              ),
             ),
           ),
-          _StatItem(count: wishListCount, label: 'Wish List'),
-          const SizedBox(width: 20),
-          _StatItem(count: historyCount, label: 'History'),
         ],
       ),
     );
@@ -64,15 +90,20 @@ class _StatItem extends StatelessWidget {
         Text(
           count.toString(),
           style: AppTextStyles.textTheme.headlineLarge?.copyWith(
-            fontSize: 28,
             fontWeight: FontWeight.w700,
+            height: 1.2,
           ),
         ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: AppTextStyles.textTheme.titleSmall?.copyWith(
-            color: AppColors.white,
+        const SizedBox(height: 8),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            label,
+            style: AppTextStyles.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.white,
+              height: 1.2,
+            ),
           ),
         ),
       ],

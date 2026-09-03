@@ -2,40 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:movies/features/profile/presentation/widgets/movie_poster_card.dart';
 
 class MovieGrid extends StatelessWidget {
-  final List<Map<String, dynamic>> movies;
+  final List<String> posterPaths;
 
   const MovieGrid({
     super.key,
-    required this.movies,
+    required this.posterPaths,
   });
+
+  static const double _posterWidth = 122;
+  static const double _posterHeight = 179.584;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _getCrossAxisCount(context),
-        crossAxisSpacing: 12,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: 0.6,
+        childAspectRatio: _posterWidth / _posterHeight,
       ),
-      itemCount: movies.length,
+      itemCount: posterPaths.length,
       itemBuilder: (context, index) {
-        final movie = movies[index];
         return MoviePosterCard(
-          title: movie['title'] ?? '',
-          rating: movie['rating'] ?? 0.0,
-          imageUrl: movie['imageUrl'],
+          imagePath: posterPaths[index],
+          rating: 7.7,
         );
       },
     );
-  }
-
-  int _getCrossAxisCount(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    if (width < 400) return 2;
-    if (width < 600) return 3;
-    if (width < 900) return 4;
-    return 5;
   }
 }

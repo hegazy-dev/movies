@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies/core/constants/app_assets.dart';
 import 'package:movies/theme/app_colors.dart';
+import 'package:movies/theme/app_text_styles.dart';
 
 class ProfileTabs extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onTabChanged;
+  final ValueChanged<int> onTabChanged;
 
   const ProfileTabs({
     super.key,
@@ -13,78 +16,88 @@ class ProfileTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.surface,
-            width: 1,
-          ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            _TabItem(
+              icon: SvgPicture.asset(
+                AppAssets.watchListIcon,
+                width: 33.28,
+                height: 19.6,
+              ),
+              label: 'Watch List',
+              onTap: () => onTabChanged(0),
+            ),
+            _TabItem(
+              icon: SvgPicture.asset(
+                AppAssets.folderIcon,
+                width: 42,
+                height: 42,
+              ),
+              label: 'History',
+              onTap: () => onTabChanged(1),
+            ),
+          ],
         ),
-      ),
-      child: Row(
-        children: [
-          _TabItem(
-            icon: Icons.view_list_outlined,
-            label: 'Watch List',
-            isSelected: selectedIndex == 0,
-            onTap: () => onTabChanged(0),
-          ),
-          _TabItem(
-            icon: Icons.folder_outlined,
-            label: 'History',
-            isSelected: selectedIndex == 1,
-            onTap: () => onTabChanged(1),
-          ),
-        ],
-      ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 3,
+                color: selectedIndex == 0
+                    ? AppColors.primary
+                    : Colors.transparent,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                height: 3,
+                color: selectedIndex == 1
+                    ? AppColors.primary
+                    : Colors.transparent,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
 
 class _TabItem extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String label;
-  final bool isSelected;
   final VoidCallback onTap;
 
   const _TabItem({
     required this.icon,
     required this.label,
-    required this.isSelected,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: isSelected ? AppColors.primary : Colors.transparent,
-                width: 3,
-              ),
-            ),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 4, bottom: 12),
           child: Column(
             children: [
-              Icon(
-                icon,
-                color: isSelected ? AppColors.primary : AppColors.grey,
-                size: 28,
+              SizedBox(
+                height: 42,
+                child: Center(child: icon),
               ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  color: isSelected ? AppColors.primary : AppColors.grey,
-                  fontSize: 14,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+              const SizedBox(height: 8),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  style: AppTextStyles.textTheme.titleLarge?.copyWith(
+                    color: AppColors.white,
+                    height: 1.2,
+                  ),
                 ),
               ),
             ],
