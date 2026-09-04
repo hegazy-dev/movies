@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_theme.dart';
+import 'onboarding/onboarding_screen.dart';
 
 void main() {
-  runApp(MoviesApp());
+  runApp(const MyApp());
 }
 
-class MoviesApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      themeMode: .dark,
+      title: 'Movie Onboarding',
+      theme: ThemeData.dark(),
+      home: const OnboardingScreen(),
     );
   }
 }
