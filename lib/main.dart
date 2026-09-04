@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'onboarding/onboarding_screen.dart';
+//import 'onboarding/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movie Onboarding',
       theme: ThemeData.dark(),
-      home: const OnboardingScreen(),
+     // home: const OnboardingScreen(),
     );
   }
 }
