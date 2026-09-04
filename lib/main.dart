@@ -5,6 +5,7 @@ import 'package:movies/features/auth/presentation/screens/forget_password_screen
 import 'package:movies/features/auth/presentation/screens/login_screen.dart';
 import 'package:movies/features/auth/presentation/screens/register_screen.dart';
 import 'package:movies/features/home/presentation/screens/home_screen.dart';
+import 'package:movies/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 void main() {
   runApp(const MoviesApp());
@@ -17,15 +18,19 @@ class MoviesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       theme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
+
       routes: {
+        OnboardingScreen.routeName: (_) => const OnboardingScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
         ForgetPasswordScreen.routeName: (_) => const ForgetPasswordScreen(),
         HomeScreen.routeName: (_) => const HomeScreen(),
       },
-      initialRoute: LoginScreen.routeName,
+
+      initialRoute: OnboardingScreen.routeName,
     );
   }
 }
