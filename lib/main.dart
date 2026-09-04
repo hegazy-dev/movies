@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:movies/home_screen.dart';
 import 'package:movies/screens/forget_password_Screen.dart';
 import 'package:movies/screens/login_screen.dart';
 import 'package:movies/screens/register_screen.dart';
@@ -21,6 +22,7 @@ class MoviesApp extends StatelessWidget {
         LoginScreen.routeName: (_) => LoginScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
+        HomeScreen.routeName: (_) => HomeScreen(),
       },
       initialRoute: LoginScreen.routeName,
     );

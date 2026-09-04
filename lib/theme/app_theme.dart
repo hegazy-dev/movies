@@ -57,6 +57,8 @@ class AppTheme {
       selectedItemColor: AppColors.primary,
       unselectedItemColor: AppColors.white,
       type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+showUnselectedLabels: false,
     ),
   );
 
