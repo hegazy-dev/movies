@@ -1,28 +1,29 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:movies/home_screen.dart';
-import 'package:movies/screens/forget_password_Screen.dart';
-import 'package:movies/screens/login_screen.dart';
-import 'package:movies/screens/register_screen.dart';
-import 'package:movies/theme/app_theme.dart';
+
+import 'package:movies/core/theme/app_theme.dart';
+import 'package:movies/features/auth/presentation/screens/forget_password_screen.dart';
+import 'package:movies/features/auth/presentation/screens/login_screen.dart';
+import 'package:movies/features/auth/presentation/screens/register_screen.dart';
+import 'package:movies/features/home/presentation/screens/home_screen.dart';
 
 void main() {
-  runApp(MoviesApp());
+  runApp(const MoviesApp());
 }
 
 class MoviesApp extends StatelessWidget {
+  const MoviesApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      themeMode: .dark,
+      themeMode: ThemeMode.dark,
       routes: {
-        LoginScreen.routeName: (_) => LoginScreen(),
-        RegisterScreen.routeName: (_) => RegisterScreen(),
-        ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
+        LoginScreen.routeName: (_) => const LoginScreen(),
+        RegisterScreen.routeName: (_) => const RegisterScreen(),
+        ForgetPasswordScreen.routeName: (_) => const ForgetPasswordScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
       },
       initialRoute: LoginScreen.routeName,
     );

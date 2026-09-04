@@ -58,8 +58,7 @@ class AppTheme {
       unselectedItemColor: AppColors.white,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
-showUnselectedLabels: false,
+      showUnselectedLabels: false,
     ),
   );
-
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class ProfileActionButtons extends StatelessWidget {
   final VoidCallback onEditProfile;
@@ -30,10 +30,7 @@ class ProfileActionButtons extends StatelessWidget {
               ),
               child: const Text(
                 'Edit Profile',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -54,17 +51,10 @@ class ProfileActionButtons extends StatelessWidget {
                 children: [
                   const Text(
                     'Exit',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(width: 8),
-                  Icon(
-                    Icons.logout,
-                    color: AppColors.white,
-                    size: 20,
-                  ),
+                  Icon(Icons.logout, color: AppColors.white, size: 20),
                 ],
               ),
             ),

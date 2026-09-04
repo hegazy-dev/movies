@@ -4,10 +4,7 @@ import 'package:movies/features/profile/presentation/widgets/movie_poster_card.d
 class MovieGrid extends StatelessWidget {
   final List<Map<String, dynamic>> movies;
 
-  const MovieGrid({
-    super.key,
-    required this.movies,
-  });
+  const MovieGrid({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {

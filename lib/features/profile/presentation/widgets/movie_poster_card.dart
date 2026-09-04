@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class MoviePosterCard extends StatelessWidget {
   final String title;
@@ -29,11 +29,7 @@ class MoviePosterCard extends StatelessWidget {
                   },
                 )
               : _PlaceholderImage(title: title),
-          Positioned(
-            left: 8,
-            bottom: 8,
-            child: _RatingBadge(rating: rating),
-          ),
+          Positioned(left: 8, bottom: 8, child: _RatingBadge(rating: rating)),
         ],
       ),
     );
@@ -55,10 +51,7 @@ class _PlaceholderImage extends StatelessWidget {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.grey,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: AppColors.grey, fontSize: 12),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -93,11 +86,7 @@ class _RatingBadge extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 4),
-          const Icon(
-            Icons.star,
-            color: AppColors.primary,
-            size: 14,
-          ),
+          const Icon(Icons.star, color: AppColors.primary, size: 14),
         ],
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
-import 'package:movies/widgets/movie_card.dart';
+import 'package:movies/core/constants/app_assets.dart';
+
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/shared/widgets/movie_card.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -13,16 +14,13 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   late PageController pageController;
 
-  int currentIndex = 0;
+  int currentIndex = 1;
 
   @override
   void initState() {
     super.initState();
 
-    pageController = PageController(
-      viewportFraction: 0.45,
-      initialPage: 0,
-    );
+    pageController = PageController(viewportFraction: 0.45, initialPage: 1);
   }
 
   @override
@@ -33,22 +31,17 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.sizeOf(context);
-    TextTheme textTheme = AppTextStyles.textTheme;
+    final Size screenSize = MediaQuery.sizeOf(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return SingleChildScrollView(
       child: Column(
         children: [
-
           // Available Now
           Padding(
-            padding: const EdgeInsets.only(
-              right: 82,
-              left: 81,
-              top: 7,
-            ),
+            padding: const EdgeInsets.only(right: 82, left: 81, top: 7),
             child: Image.asset(
-              'assets/images/available.png',
+              AppAssets.available,
               height: screenSize.height * .14,
               width: screenSize.width * .62,
               fit: BoxFit.fill,
@@ -57,19 +50,16 @@ class _HomeTabState extends State<HomeTab> {
 
           const SizedBox(height: 21),
 
-          // Available Movies
           SizedBox(
             height: screenSize.height * .25,
             child: PageView.builder(
               controller: pageController,
               itemCount: 5,
-
               onPageChanged: (index) {
                 setState(() {
                   currentIndex = index;
                 });
               },
-
               itemBuilder: (context, index) {
                 return AnimatedScale(
                   scale: currentIndex == index ? 1.0 : 0.78,
@@ -89,7 +79,7 @@ class _HomeTabState extends State<HomeTab> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 38),
             child: Image.asset(
-              'assets/images/watch_now.png',
+              AppAssets.watchNow,
               height: screenSize.height * .14,
               width: screenSize.width * .62,
               fit: BoxFit.fill,
@@ -103,10 +93,7 @@ class _HomeTabState extends State<HomeTab> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                Text(
-                  'Action',
-                  style: textTheme.titleLarge,
-                ),
+                Text('Action', style: textTheme.titleLarge),
 
                 const Spacer(),
 
@@ -119,10 +106,7 @@ class _HomeTabState extends State<HomeTab> {
 
                 const SizedBox(width: 4),
 
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                ),
+                const Icon(Icons.arrow_forward_ios, size: 14),
               ],
             ),
           ),
@@ -136,11 +120,9 @@ class _HomeTabState extends State<HomeTab> {
               padding: const EdgeInsets.only(left: 16),
               scrollDirection: Axis.horizontal,
               itemCount: 5,
-
               separatorBuilder: (context, index) {
                 return const SizedBox(width: 16);
               },
-
               itemBuilder: (context, index) {
                 return MovieCard(
                   imageUrl: 'assets/images/card.png',

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
-import 'package:movies/theme/app_theme.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
 
 class DefaultTextFormField extends StatefulWidget {
-  String hintText;
-  TextEditingController? controller;
-  String? prefixIconImageName;
-  String? suffixIconImageName;
-  void Function(String)? onChange;
-  bool isPassword;
-  String? Function(String?)? validator;
+  final String hintText;
+  final TextEditingController? controller;
+  final String? prefixIconImageName;
+  final String? suffixIconImageName;
+  final void Function(String)? onChange;
+  final bool isPassword;
+  final String? Function(String?)? validator;
 
-  DefaultTextFormField({
+  const DefaultTextFormField({
+    super.key,
     required this.hintText,
     this.controller,
     this.prefixIconImageName,
@@ -42,7 +42,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                 'assets/icons/${widget.prefixIconImageName}.svg',
                 height: 24,
                 width: 24,
-                fit: .scaleDown,
+                fit: BoxFit.scaleDown,
               ),
         suffixIcon: widget.isPassword
             ? IconButton(
@@ -63,7 +63,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                 'assets/icons/${widget.suffixIconImageName}.svg',
                 height: 24,
                 width: 24,
-                fit: .scaleDown,
+                fit: BoxFit.scaleDown,
               ),
       ),
       controller: widget.controller,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class IcactiveNavBarIcon extends StatelessWidget {
-  String iconName;
+class InactiveNavBarIcon extends StatelessWidget {
+  final String iconName;
 
-  IcactiveNavBarIcon({required this.iconName});
+  const InactiveNavBarIcon({required this.iconName});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class IcactiveNavBarIcon extends StatelessWidget {
       'assets/icons/$iconName.svg',
       width: 24,
       height: 24,
-      fit: .scaleDown,
+      fit: BoxFit.scaleDown,
     );
   }
 }

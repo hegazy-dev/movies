@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
 
 class LanguageSelector extends StatefulWidget {
-  String firstLanguage;
-  String secondLanguage;
+  final String firstLanguage;
+  final String secondLanguage;
 
-  LanguageSelector({required this.firstLanguage, required this.secondLanguage});
+  const LanguageSelector({
+    super.key,
+    required this.firstLanguage,
+    required this.secondLanguage,
+  });
 
   @override
   State<LanguageSelector> createState() => _LanguageSelectorState();
@@ -18,13 +22,13 @@ class _LanguageSelectorState extends State<LanguageSelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.primary, width: 2),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
-        mainAxisSize: .min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           _LanguageButton(
             language: widget.firstLanguage,
@@ -35,9 +39,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               });
             },
           ),
-
-          SizedBox(width: 8),
-
+          const SizedBox(width: 8),
           _LanguageButton(
             language: widget.secondLanguage,
             isSelected: selectedLanguage == 1,
@@ -54,11 +56,11 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 }
 
 class _LanguageButton extends StatelessWidget {
-  String language;
-  bool isSelected;
-  VoidCallback onPressed;
+  final String language;
+  final bool isSelected;
+  final VoidCallback onPressed;
 
-  _LanguageButton({
+  const _LanguageButton({
     required this.language,
     required this.isSelected,
     required this.onPressed,
@@ -69,7 +71,7 @@ class _LanguageButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(

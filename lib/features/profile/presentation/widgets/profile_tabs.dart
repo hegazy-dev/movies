@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class ProfileTabs extends StatelessWidget {
   final int selectedIndex;
@@ -16,12 +16,7 @@ class ProfileTabs extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.surface,
-            width: 1,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.surface, width: 1)),
       ),
       child: Row(
         children: [

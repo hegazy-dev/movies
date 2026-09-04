@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/features/auth/presentation/screens/login_screen.dart';
 import 'package:movies/features/profile/presentation/screens/update_profile_screen.dart';
 import 'package:movies/features/profile/presentation/widgets/empty_watchlist.dart';
 import 'package:movies/features/profile/presentation/widgets/movie_grid.dart';
@@ -6,14 +7,14 @@ import 'package:movies/features/profile/presentation/widgets/profile_action_butt
 import 'package:movies/features/profile/presentation/widgets/profile_header.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_tabs.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileTab extends StatefulWidget {
+  const ProfileTab({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfileTab> createState() => _ProfileTabState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileTabState extends State<ProfileTab> {
   int _selectedTab = 0;
 
   final String _userName = 'John Safwat';
@@ -56,7 +57,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               },
-              onExit: () {},
+              onExit: () {
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
             ),
             const SizedBox(height: 20),
             ProfileTabs(
@@ -70,11 +73,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: _selectedTab == 0
                   ? _watchlistMovies.isEmpty
-                      ? const EmptyWatchlist()
-                      : MovieGrid(movies: _watchlistMovies)
+                        ? const EmptyWatchlist()
+                        : MovieGrid(movies: _watchlistMovies)
                   : _historyMovies.isEmpty
-                      ? const EmptyWatchlist()
-                      : MovieGrid(movies: _historyMovies),
+                  ? const EmptyWatchlist()
+                  : MovieGrid(movies: _historyMovies),
             ),
           ],
         ),

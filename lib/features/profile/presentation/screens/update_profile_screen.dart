@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/constants/app_assets.dart';
 import 'package:movies/features/profile/presentation/widgets/avatar_picker.dart';
 import 'package:movies/features/profile/presentation/widgets/update_profile_form.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});

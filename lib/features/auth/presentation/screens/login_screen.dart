@@ -1,21 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:movies/screens/forget_password_Screen.dart';
-import 'package:movies/screens/register_screen.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
-import 'package:movies/widgets/default_elevated_button.dart';
-import 'package:movies/widgets/language_selector.dart';
+import 'dart:ui';
 
-import '../widgets/default_text_form_field.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:movies/core/constants/app_assets.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
+
+import 'package:movies/features/auth/presentation/screens/forget_password_screen.dart';
+import 'package:movies/features/auth/presentation/screens/register_screen.dart';
+import 'package:movies/features/auth/presentation/widgets/language_selector.dart';
+import 'package:movies/features/home/presentation/screens/home_screen.dart';
+
+import 'package:movies/shared/widgets/default_elevated_button.dart';
+import 'package:movies/shared/widgets/default_text_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = "/login";
 
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
-    double screenWidth = MediaQuery.sizeOf(context).width;
+    final double screenHeight = MediaQuery.sizeOf(context).height;
+    final double screenWidth = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
       body: SafeArea(
@@ -25,21 +33,26 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: screenHeight * .072),
+
                 Image.asset(
-                  "assets/images/logo.png",
+                  AppAssets.logoImage,
                   height: screenHeight * .13,
                   width: screenWidth * .30,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
+
                 SizedBox(height: screenHeight * .074),
+
                 DefaultTextFormField(
                   hintText: "Email",
                   prefixIconImageName: "email_icon",
                 ),
+
                 SizedBox(height: screenHeight * .024),
+
                 DefaultTextFormField(
                   hintText: "Password",
-                  prefixIconImageName: "lock_passowrd",
+                  prefixIconImageName: "lock_Passowrd",
                   isPassword: true,
                 ),
 
@@ -52,21 +65,31 @@ class LoginScreen extends StatelessWidget {
                         ForgetPasswordScreen.routeName,
                       );
                     },
-                    child: Text("Forget Password?"),
+                    child: const Text("Forget Password?"),
                   ),
                 ),
+
                 SizedBox(height: screenHeight * .02),
 
-                DefaultElevatedButton(label: "Login", onPressed: login),
+                DefaultElevatedButton(
+                  label: "Login",
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      HomeScreen.routeName,
+                    );
+                  },
+                ),
+
                 Row(
-                  mainAxisAlignment: .center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don’t Have Account ?"),
+                    const Text("Don’t Have Account ?"),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, RegisterScreen.routeName);
                       },
-                      child: Text("Create One"),
+                      child: const Text("Create One"),
                     ),
                   ],
                 ),
@@ -79,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                       child: Divider(color: AppColors.primary, thickness: 1),
                     ),
                     Padding(
-                      padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         'OR',
                         style: AppTextStyles.textTheme.titleMedium,
@@ -110,9 +133,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-void Function()? login() {
-  //To Do login logic
-}
-void Function()? forgetPass() {}
-void Function()? rigester() {}

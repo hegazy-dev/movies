@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/constants/app_assets.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String userName;
@@ -26,19 +26,14 @@ class ProfileHeader extends StatelessWidget {
           CircleAvatar(
             radius: MediaQuery.sizeOf(context).width * 0.15,
             backgroundColor: const Color(0xFFB3E5FC),
-            backgroundImage: AssetImage(
-              avatarPath ?? AppAssets.defaultAvatar,
-            ),
+            backgroundImage: AssetImage(avatarPath ?? AppAssets.defaultAvatar),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  userName,
-                  style: AppTextStyles.textTheme.titleLarge,
-                ),
+                Text(userName, style: AppTextStyles.textTheme.titleLarge),
               ],
             ),
           ),

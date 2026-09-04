@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/constants/app_assets.dart';
-import 'package:movies/theme/app_colors.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class AvatarPicker extends StatelessWidget {
   final int selectedIndex;
