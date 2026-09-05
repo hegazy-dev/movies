@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:movies/core/errors/network_exception.dart';
+import 'package:movies/core/errors/server_exception.dart';
 
 class ApiClient {
   static const String baseUrl = 'https://movies-api.accel.li/api/v2/';
@@ -17,12 +20,18 @@ class ApiClient {
       '$baseUrl$endpoint',
     ).replace(queryParameters: queryParameters);
 
-    final response = await _client.get(uri);
+    try {
+      final response = await _client.get(uri);
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return jsonDecode(response.body);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return jsonDecode(response.body);
+      }
+
+      throw ServerException(response.statusCode);
+    } on SocketException {
+      throw NetworkException('No internet connection');
+    } on http.ClientException {
+      throw NetworkException('Network request failed');
     }
-
-    throw Exception('HTTP Error: ${response.statusCode}');
   }
 }
