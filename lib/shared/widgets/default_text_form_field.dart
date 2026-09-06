@@ -8,6 +8,7 @@ class DefaultTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String? prefixIconImageName;
   final String? suffixIconImageName;
+  final Size prefixIconSize;
   final void Function(String)? onChange;
   final bool isPassword;
   final String? Function(String?)? validator;
@@ -18,6 +19,7 @@ class DefaultTextFormField extends StatefulWidget {
     this.controller,
     this.prefixIconImageName,
     this.suffixIconImageName,
+    this.prefixIconSize = const Size(24, 24),
     this.onChange,
     this.isPassword = false,
     this.validator,
@@ -33,17 +35,28 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: AppTextStyles.textTheme.titleLarge,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: AppTextStyles.textTheme.titleMedium,
+        hintStyle: AppTextStyles.textTheme.titleLarge,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         prefixIcon: widget.prefixIconImageName == null
             ? null
-            : SvgPicture.asset(
-                'assets/icons/${widget.prefixIconImageName}.svg',
-                height: 24,
-                width: 24,
-                fit: BoxFit.scaleDown,
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: SvgPicture.asset(
+                  'assets/icons/${widget.prefixIconImageName}.svg',
+                  width: widget.prefixIconSize.width,
+                  height: widget.prefixIconSize.height,
+                  fit: BoxFit.contain,
+                ),
               ),
+        prefixIconConstraints: BoxConstraints(
+          minWidth: widget.prefixIconSize.width + 24,
+          maxWidth: widget.prefixIconSize.width + 24,
+          minHeight: widget.prefixIconSize.height,
+          maxHeight: 56,
+        ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
@@ -63,7 +76,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                 'assets/icons/${widget.suffixIconImageName}.svg',
                 height: 24,
                 width: 24,
-                fit: BoxFit.scaleDown,
+                fit: .scaleDown,
               ),
       ),
       controller: widget.controller,
