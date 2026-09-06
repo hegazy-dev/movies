@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/constants/app_assets.dart';
+import 'package:movies/features/profile/domain/profile_update_result.dart';
 import 'package:movies/features/profile/presentation/screens/update_profile_screen.dart';
 import 'package:movies/features/profile/presentation/widgets/empty_watchlist.dart';
 import 'package:movies/features/profile/presentation/widgets/movie_grid.dart';
@@ -19,7 +20,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedTab = 0;
 
-  final String _userName = 'John Safwat';
+  String _userName = 'John Safwat';
+  String _phone = '01200000000';
+  int _avatarIndex = 7;
   final int _wishListCount = 12;
   final int _historyCount = 10;
 
@@ -40,16 +43,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   userName: _userName,
                   wishListCount: _wishListCount,
                   historyCount: _historyCount,
+                  avatarPath: AppAssets.avatars[_avatarIndex],
                 ),
                 const SizedBox(height: 23),
                 ProfileActionButtons(
-                  onEditProfile: () {
-                    Navigator.push(
+                  onEditProfile: () async {
+                    final result = await Navigator.push<ProfileUpdateResult>(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const UpdateProfileScreen(),
+                        builder: (context) => UpdateProfileScreen(
+                          name: _userName,
+                          phone: _phone,
+                          avatarIndex: _avatarIndex,
+                        ),
                       ),
                     );
+                    if (result == null || !mounted) return;
+                    setState(() {
+                      _userName = result.name;
+                      _phone = result.phone;
+                      _avatarIndex = result.avatarIndex;
+                    });
                   },
                   onExit: () {},
                 ),

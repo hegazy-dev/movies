@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_theme.dart';
+import 'package:movies/theme/app_text_styles.dart';
 
 class DefaultTextFormField extends StatefulWidget {
-  String hintText;
-  TextEditingController? controller;
-  String? prefixIconImageName;
-  String? suffixIconImageName;
-  void Function(String)? onChange;
-  bool isPassword;
-  String? Function(String?)? validator;
+  final String hintText;
+  final TextEditingController? controller;
+  final String? prefixIconImageName;
+  final String? suffixIconImageName;
+  final Size prefixIconSize;
+  final void Function(String)? onChange;
+  final bool isPassword;
+  final String? Function(String?)? validator;
 
-  DefaultTextFormField({
+  const DefaultTextFormField({
+    super.key,
     required this.hintText,
     this.controller,
     this.prefixIconImageName,
     this.suffixIconImageName,
+    this.prefixIconSize = const Size(24, 24),
     this.onChange,
     this.isPassword = false,
     this.validator,
@@ -32,16 +35,28 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: AppTextStyles.textTheme.titleLarge,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: AppTextStyles.textTheme.titleLarge,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         prefixIcon: widget.prefixIconImageName == null
             ? null
-            : SvgPicture.asset(
-                'assets/icons/${widget.prefixIconImageName}.svg',
-                height: 24,
-                width: 24,
-                fit: .scaleDown,
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: SvgPicture.asset(
+                  'assets/icons/${widget.prefixIconImageName}.svg',
+                  width: widget.prefixIconSize.width,
+                  height: widget.prefixIconSize.height,
+                  fit: BoxFit.contain,
+                ),
               ),
+        prefixIconConstraints: BoxConstraints(
+          minWidth: widget.prefixIconSize.width + 24,
+          maxWidth: widget.prefixIconSize.width + 24,
+          minHeight: widget.prefixIconSize.height,
+          maxHeight: 56,
+        ),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
