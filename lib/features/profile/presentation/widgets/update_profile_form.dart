@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies/theme/app_colors.dart';
-import 'package:movies/theme/app_text_styles.dart';
-import 'package:movies/widgets/default_text_form_field.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_text_styles.dart';
+import 'package:movies/shared/widgets/default_text_form_field.dart';
 
 class UpdateProfileFields extends StatelessWidget {
   final TextEditingController nameController;

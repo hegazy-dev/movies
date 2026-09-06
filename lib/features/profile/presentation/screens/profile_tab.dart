@@ -8,7 +8,7 @@ import 'package:movies/features/profile/presentation/widgets/profile_action_butt
 import 'package:movies/features/profile/presentation/widgets/profile_bottom_nav.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_header.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_tabs.dart';
-import 'package:movies/theme/app_colors.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

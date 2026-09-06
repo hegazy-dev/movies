@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/features/profile/presentation/screens/profile_screen.dart';
-import 'package:movies/theme/app_theme.dart';
+import 'package:movies/features/profile/presentation/screens/profile_tab.dart';
+import 'package:movies/core/theme/app_theme.dart';
 
 void main() {
   runApp(const MoviesApp());
