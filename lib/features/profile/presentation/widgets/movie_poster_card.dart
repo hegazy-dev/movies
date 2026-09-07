@@ -1,35 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:movies/core/constants/app_assets.dart';
 import 'package:movies/core/theme/app_colors.dart';
-import 'package:movies/core/theme/app_text_styles.dart';
 
 class MoviePosterCard extends StatelessWidget {
-  final String imagePath;
+  final String title;
   final double rating;
+  final String? imageUrl;
 
   const MoviePosterCard({
     super.key,
-    required this.imagePath,
+    required this.title,
     required this.rating,
+    this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(12),
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          ),
-          Positioned(
-            left: 9.76,
-            top: 12.69,
-            child: _RatingBadge(rating: rating),
-          ),
+          imageUrl != null
+              ? Image.network(
+                  imageUrl!,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return _PlaceholderImage(title: title);
+                  },
+                )
+              : _PlaceholderImage(title: title),
+          Positioned(left: 8, bottom: 8, child: _RatingBadge(rating: rating)),
         ],
+      ),
+    );
+  }
+}
+
+class _PlaceholderImage extends StatelessWidget {
+  final String title;
+
+  const _PlaceholderImage({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.surface,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: AppColors.grey, fontSize: 12),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ),
     );
   }
@@ -43,35 +69,24 @@ class _RatingBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 56.608,
-      height: 27.328,
-      padding: const EdgeInsets.symmetric(horizontal: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors.background.withValues(alpha: 0.71),
-        borderRadius: BorderRadius.circular(10),
+        color: AppColors.surface.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                rating.toStringAsFixed(1),
-                style: AppTextStyles.textTheme.titleMedium?.copyWith(
-                  fontSize: 16,
-                  color: AppColors.white,
-                  height: 1.2,
-                ),
-              ),
+          Text(
+            rating.toStringAsFixed(1),
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          Image.asset(
-            AppAssets.star,
-            width: 14.64,
-            height: 14.64,
-            fit: BoxFit.contain,
-          ),
+          const SizedBox(width: 4),
+          const Icon(Icons.star, color: AppColors.primary, size: 14),
         ],
       ),
     );

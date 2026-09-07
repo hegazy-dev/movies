@@ -14,16 +14,19 @@ class AvatarPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(19, 19, 19, 16),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 19,
-          mainAxisSpacing: 19,
-          childAspectRatio: 108 / 105,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
         ),
         itemCount: AppAssets.avatars.length,
         itemBuilder: (context, index) {
@@ -32,16 +35,18 @@ class AvatarPicker extends StatelessWidget {
             onTap: () => onAvatarSelected(index),
             child: Container(
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.primary.withValues(alpha: 0.56)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.primary),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isSelected ? AppColors.primary : AppColors.grey,
+                  width: isSelected ? 3 : 1,
+                ),
               ),
-              padding: const EdgeInsets.fromLTRB(8, 8, 12, 9),
-              child: Image.asset(
-                AppAssets.avatars[index],
-                fit: BoxFit.contain,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(AppAssets.avatars[index]),
+                  backgroundColor: const Color(0xFFB3E5FC),
+                ),
               ),
             ),
           );

@@ -1,39 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/constants/app_assets.dart';
-import 'package:movies/features/profile/domain/profile_update_result.dart';
 import 'package:movies/features/profile/presentation/widgets/avatar_picker.dart';
 import 'package:movies/features/profile/presentation/widgets/update_profile_form.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_text_styles.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  final String name;
-  final String phone;
-  final int avatarIndex;
-
-  const UpdateProfileScreen({
-    super.key,
-    required this.name,
-    required this.phone,
-    required this.avatarIndex,
-  });
+  const UpdateProfileScreen({super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  late final TextEditingController _nameController;
-  late final TextEditingController _phoneController;
-  late int _selectedAvatarIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController(text: widget.name);
-    _phoneController = TextEditingController(text: widget.phone);
-    _selectedAvatarIndex = widget.avatarIndex;
-  }
+  int _selectedAvatarIndex = 0;
+  final TextEditingController _nameController = TextEditingController(text: 'John Safwat');
+  final TextEditingController _phoneController = TextEditingController(text: '01200000000');
 
   @override
   void dispose() {
@@ -42,21 +24,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     super.dispose();
   }
 
-  void _updateData() {
-    Navigator.pop(
-      context,
-      ProfileUpdateResult(
-        name: _nameController.text.trim(),
-        phone: _phoneController.text.trim(),
-        avatarIndex: _selectedAvatarIndex,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primary),
@@ -64,9 +34,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         ),
         title: Text(
           'Pick Avatar',
-          style: AppTextStyles.textTheme.titleMedium?.copyWith(
+          style: AppTextStyles.textTheme.titleLarge?.copyWith(
             color: AppColors.primary,
-            height: 1.2,
           ),
         ),
         centerTitle: true,
@@ -76,97 +45,89 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: _openAvatarPicker,
-                      child: ClipOval(
-                        child: Image.asset(
-                          AppAssets.avatars[_selectedAvatarIndex],
-                          width: 150,
-                          height: 150,
-                          fit: BoxFit.cover,
-                        ),
+                    CircleAvatar(
+                      radius: MediaQuery.sizeOf(context).width * 0.18,
+                      backgroundColor: const Color(0xFFB3E5FC),
+                      backgroundImage: AssetImage(
+                        AppAssets.avatars[_selectedAvatarIndex],
                       ),
                     ),
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 24),
                     UpdateProfileFields(
                       nameController: _nameController,
                       phoneController: _phoneController,
                       onResetPassword: () {},
                     ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: AvatarPicker(
+                        selectedIndex: _selectedAvatarIndex,
+                        onAvatarSelected: (index) {
+                          setState(() {
+                            _selectedAvatarIndex = index;
+                          });
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            _buildBottomButtons(),
+            _buildBottomButtons(context),
           ],
         ),
       ),
     );
   }
 
-  Future<void> _openAvatarPicker() async {
-    final selected = await showModalBottomSheet<int>(
-      context: context,
-      backgroundColor: AppColors.surface,
-      barrierColor: AppColors.background.withValues(alpha: 0.7),
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (context) {
-        return SafeArea(
-          child: AvatarPicker(
-            selectedIndex: _selectedAvatarIndex,
-            onAvatarSelected: (index) => Navigator.pop(context, index),
-          ),
-        );
-      },
-    );
-
-    if (selected != null && mounted) {
-      setState(() {
-        _selectedAvatarIndex = selected;
-      });
-    }
-  }
-
-  Widget _buildBottomButtons() {
+  Widget _buildBottomButtons(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
       child: Column(
         children: [
           SizedBox(
             width: double.infinity,
-            height: 56,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.red,
                 foregroundColor: AppColors.white,
+                fixedSize: Size(0, MediaQuery.sizeOf(context).height * 0.06),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
               ),
-              child: Text(
+              child: const Text(
                 'Delete Account',
-                style: AppTextStyles.textTheme.titleLarge?.copyWith(
-                  color: AppColors.white,
-                  height: 1.2,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 19),
+          const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            height: 56,
             child: ElevatedButton(
-              onPressed: _updateData,
-              child: Text(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.background,
+                fixedSize: Size(0, MediaQuery.sizeOf(context).height * 0.06),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const Text(
                 'Update Data',
-                style: AppTextStyles.textTheme.titleLarge?.copyWith(
-                  color: AppColors.background,
-                  height: 1.2,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
