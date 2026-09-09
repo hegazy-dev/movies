@@ -13,8 +13,9 @@ class MovieCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Stack(
+        fit: StackFit.expand, // Ensures the image takes full space
         children: [
-          Image.asset(imageUrl, fit: BoxFit.cover),
+          _buildImage(imageUrl),
 
           Positioned(
             top: 8,
@@ -40,5 +41,24 @@ class MovieCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Helper method to safely load either a network URL or a local asset
+  Widget _buildImage(String url) {
+    if (url.startsWith('http') || url.startsWith('https')) {
+      return Image.network(
+        url,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Image.asset(
+          'assets/images/card.png',
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      return Image.asset(
+        url,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }
