@@ -7,8 +7,6 @@ import '../../data/repositories/movie_repository.dart';
 class HomeViewModel extends ChangeNotifier {
   final MovieRepository movieRepository;
 
-  // Use the shared UiState to hold the list of movies
-  // Assume UiState has factories like .initial(), .loading(), .success(), .empty(), .error()
   UiState<List<MovieModel>> _moviesState = UiState.initial();
 
   UiState<List<MovieModel>> get moviesState => _moviesState;
