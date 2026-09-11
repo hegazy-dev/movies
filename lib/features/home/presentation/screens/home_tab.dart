@@ -6,8 +6,10 @@ import 'package:movies/core/state/ui_state.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../data/data_sources/move_remote_data_source.dart';
 import '../../../data/repositories/movie_repository.dart';
+import '../../../movie_details/presentation/screens/movie_details_screen.dart';
 import '../view_models.dart';
 
+// Update this import path to match your actual folder structure
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -96,11 +98,23 @@ class _HomeTabState extends State<HomeTab> {
                         return AnimatedScale(
                           scale: currentIndex == index ? 1.0 : 0.78,
                           duration: const Duration(milliseconds: 200),
-                          child: MovieCard(
-                            imageUrl: movie.largeCoverImage.isNotEmpty
-                                ? movie.largeCoverImage
-                                : 'assets/images/card.png',
-                            rating: movie.rating,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MovieDetailsScreen(
+                                    movieId: movie.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: MovieCard(
+                              imageUrl: movie.largeCoverImage.isNotEmpty
+                                  ? movie.largeCoverImage
+                                  : 'assets/images/card.png',
+                              rating: movie.rating,
+                            ),
                           ),
                         );
                       },
@@ -153,11 +167,23 @@ class _HomeTabState extends State<HomeTab> {
 
                         return SizedBox(
                           width: screenSize.width * 0.35,
-                          child: MovieCard(
-                            imageUrl: movie.mediumCoverImage.isNotEmpty
-                                ? movie.mediumCoverImage
-                                : 'assets/images/card.png',
-                            rating: movie.rating,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MovieDetailsScreen(
+                                    movieId: movie.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: MovieCard(
+                              imageUrl: movie.mediumCoverImage.isNotEmpty
+                                  ? movie.mediumCoverImage
+                                  : 'assets/images/card.png',
+                              rating: movie.rating,
+                            ),
                           ),
                         );
                       },

@@ -1,4 +1,3 @@
-
 import '../data_sources/move_remote_data_source.dart';
 import '../models/movie_model.dart';
 
@@ -11,4 +10,11 @@ class MovieRepository {
     return await remoteDataSource.getMovies(page: page, limit: limit);
   }
 
+  Future<MovieModel> getMovieDetails(int movieId) async {
+    return await remoteDataSource.getMovieDetails(movieId);
+  }
+
+  Future<List<MovieModel>> getMovieSuggestions(int movieId) async {
+    return await remoteDataSource.getMovieSuggestions(movieId);
+  }
 }
